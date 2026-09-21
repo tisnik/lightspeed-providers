@@ -22,6 +22,7 @@ from llama_stack_api.inference import (
     OpenAIToolMessageParam,
     OpenAIUserMessageParam,
 )
+from llama_stack_api.prompts.models import CreatePromptRequest
 
 from .config import (
     RedactionShieldConfig,
@@ -88,14 +89,14 @@ class RedactionShieldImpl(Safety, ShieldsProtocolPrivate):
                     }
                 )
 
-                log.debug(f"Compiled redaction rule: {rule.pattern}")
+                log.debug("Compiled redaction rule: %s", rule.pattern)
 
             except re.error as e:
-                log.error(f"Invalid regex pattern '{rule.pattern}': {e}")
-            except Exception as e:
-                log.error(f"Error compiling rule {rule.pattern}: {e}")
+                log.error("Invalid regex pattern '%s': %s", rule.pattern, e)
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                log.error("Error compiling rule %s: %s", rule.pattern, e)
 
-        log.info(f"Compiled {len(compiled_rules)} redaction rules")
+        log.info("Compiled %s redaction rules", len(compiled_rules))
         return compiled_rules
 
     async def initialize(self) -> None:
