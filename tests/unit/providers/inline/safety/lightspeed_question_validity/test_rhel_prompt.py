@@ -6,6 +6,8 @@ Validates that the RHEL classification prompt:
 - Covers pentest adversarial examples (persona manipulation, out-of-scope tasks)
 """
 
+# pylint: disable=too-few-public-methods
+
 from string import Template
 from unittest.mock import AsyncMock, MagicMock
 

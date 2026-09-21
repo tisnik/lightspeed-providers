@@ -184,7 +184,7 @@ class LightspeedAgentsImpl(MetaReferenceAgentsImpl):
             names = json.loads(list_str)
             logger.info("Filtered tool names from LLM: %s", names)
             return names
-        except Exception as exp:
+        except Exception as exp:  # pylint: disable=broad-exception-caught
             logger.error("Failed to parse LLM response as JSON: %s", exp)
             return []
 
@@ -306,7 +306,7 @@ class LightspeedAgentsImpl(MetaReferenceAgentsImpl):
                     "Always included tools (config + previously called): %s",
                     always_included_tools,
                 )
-            except Exception as e:
+            except Exception as e:  # pylint: disable=broad-exception-caught
                 logger.warning("Failed to retrieve conversation history: %s", e)
 
         tools_for_filtering, tool_to_endpoint = await self._extract_tool_definitions(
@@ -420,7 +420,7 @@ class LightspeedAgentsImpl(MetaReferenceAgentsImpl):
                         if hasattr(tool_call, "name"):
                             tool_names.add(tool_call.name)
             logger.info("Previously called tools: %s", tool_names)
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             logger.warning("Failed to extract previously called tools: %s", e)
         return tool_names
 
@@ -569,7 +569,7 @@ class LightspeedAgentsImpl(MetaReferenceAgentsImpl):
                 len(tool_defs),
                 server_label,
             )
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             logger.error("Failed to get MCP tool definitions: %s", e)
             tool_defs.append(
                 {

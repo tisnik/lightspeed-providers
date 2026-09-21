@@ -88,14 +88,14 @@ class RedactionShieldImpl(Safety, ShieldsProtocolPrivate):
                     }
                 )
 
-                log.debug(f"Compiled redaction rule: {rule.pattern}")
+                log.debug("Compiled redaction rule: %s", rule.pattern)
 
             except re.error as e:
-                log.error(f"Invalid regex pattern '{rule.pattern}': {e}")
-            except Exception as e:
-                log.error(f"Error compiling rule {rule.pattern}: {e}")
+                log.error("Invalid regex pattern '%s': %s", rule.pattern, e)
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                log.error("Error compiling rule %s: %s", rule.pattern, e)
 
-        log.info(f"Compiled {len(compiled_rules)} redaction rules")
+        log.info("Compiled %s redaction rules", len(compiled_rules))
         return compiled_rules
 
     async def initialize(self) -> None:
@@ -241,10 +241,10 @@ class RedactionShieldImpl(Safety, ShieldsProtocolPrivate):
                     )
                     applied_rules.append(rule["original_pattern"])
 
-            except Exception as e:
-                log.debug(f"Error applying rule {rule['original_pattern']}: {e}")
+            except Exception as e:  # pylint:disable=broad-exception-caught
+                log.debug("Error applying rule %s: %s", rule["original_pattern"], e)
 
         if applied_rules:
-            log.debug(f"Applied {len(applied_rules)} redaction rules to content")
+            log.debug("Applied %s redaction rules to content", len(applied_rules))
 
         return redacted_content
