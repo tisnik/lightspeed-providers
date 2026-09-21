@@ -22,7 +22,6 @@ from llama_stack_api.inference import (
     OpenAIToolMessageParam,
     OpenAIUserMessageParam,
 )
-from llama_stack_api.prompts.models import CreatePromptRequest
 
 from .config import (
     RedactionShieldConfig,
