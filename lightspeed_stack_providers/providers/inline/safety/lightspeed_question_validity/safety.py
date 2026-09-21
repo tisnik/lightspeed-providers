@@ -198,7 +198,7 @@ class QuestionValidityShieldImpl(Safety, ShieldsProtocolPrivate):
         last_msg = user_messages[-1]
         content = last_msg.content if hasattr(last_msg, "content") else str(last_msg)
         message = OpenAIUserMessageParam(role="user", content=content)
-        log.debug(f"Shield message: {message.content}")
+        log.debug("Shield message: %s", message.content)
 
         impl = QuestionValidityRunner(
             model_id=self.config.model_id or DEFAULT_MODEL,
@@ -273,7 +273,7 @@ class QuestionValidityRunner:
             rejected=SUBJECT_REJECTED,
             message=message.content,
         )
-        log.debug(f"Shield prompt: {prompt}")
+        log.debug("Shield prompt: %s", prompt)
         return prompt
 
     def get_shield_response(self, response: str) -> RunShieldResponse:
@@ -293,7 +293,7 @@ class QuestionValidityRunner:
             `user_message` set to the configured invalid-question response.
         """
         response = response.strip()
-        log.debug(f"Shield response: {response}")
+        log.debug("Shield response: %s", response)
 
         if response == SUBJECT_ALLOWED:
             return RunShieldResponse(violation=None)
@@ -323,7 +323,7 @@ class QuestionValidityRunner:
             RunShieldResponse: Shield decision derived from the model output.
         """
         shield_input_message = self.build_text_shield_input(message)
-        log.debug(f"Shield input message: {shield_input_message}")
+        log.debug("Shield input message: %s", shield_input_message)
 
         request = OpenAIChatCompletionRequestWithExtraBody(
             model=self.model_id,
