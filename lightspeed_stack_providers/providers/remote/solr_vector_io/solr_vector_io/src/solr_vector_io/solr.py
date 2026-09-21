@@ -554,7 +554,7 @@ class SolrIndex(EmbeddingIndex):
                 try:
                     error_data = e.response.json()
                     log.error(f"Solr error response: {error_data}")
-                except Exception:
+                except Exception:  # pylint: disable=broad-exception-caught
                     log.error(f"Solr error response (text): {e.response.text[:500]}")
                 raise
             except Exception as e:
@@ -623,7 +623,7 @@ class SolrIndex(EmbeddingIndex):
                 }, " f"total_tokens={parent_doc.get(schema.parent_total_tokens_field)}")
             return parent_doc
 
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             log.error(f"Error fetching parent metadata for {parent_id}: {e}")
             return None
 
@@ -714,7 +714,7 @@ class SolrIndex(EmbeddingIndex):
             log.info(f"Fetched {len(chunks)} context chunks")
             return chunks
 
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             log.error(f"Error fetching context chunks for {parent_id}: {e}")
             return []
 
@@ -1241,7 +1241,7 @@ class SolrIndex(EmbeddingIndex):
                 metadata_token_count=None,  # optional but required by schema
             )
 
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             log.exception(f"Error converting Solr document to Chunk: {e}")
             return None
 
