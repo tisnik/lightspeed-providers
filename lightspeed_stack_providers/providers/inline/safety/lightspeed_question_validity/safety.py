@@ -77,7 +77,6 @@ class QuestionValidityShieldImpl(Safety, ShieldsProtocolPrivate):
 
         This implementation performs no actions.
         """
-        pass
 
     async def shutdown(self) -> None:
         """
@@ -85,7 +84,6 @@ class QuestionValidityShieldImpl(Safety, ShieldsProtocolPrivate):
 
         This implementation performs no actions (no-op).
         """
-        pass
 
     async def run_moderation(self, request: RunModerationRequest) -> ModerationObject:
         """Run moderation on input text to check if it's a valid question.
